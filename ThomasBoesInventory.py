@@ -1,5 +1,7 @@
+#Thomas Boes, Dictionary Project, 9/24/18
+
 def inventory():
-    print("This is your inventory.")
+    print("You open your inventory.")
     #the spaces of your inventory
     storage = {
         'space_1':"empty",
@@ -7,29 +9,31 @@ def inventory():
         'space_3':"empty",
         }
     while True:
-        items = ["apple","coin","sentient pile of dirt","50 copies of skyrim"]
+        storage_count = range(1,(len(storage)+1))
+        for num in storage_count:
+            space_num = num
         print("You can pick up an item or check your inventory.")
         print("You can also increase or decrease your inventory size.")
         print("You can also quit")
-        action = input("What do you choose to do?((p)ickup/(c)heck/(q)uit/(e)xpand_inventory): ")
+        action = input("What do you choose to do?((p)ickup/(c)heck/(q)uit/(e)xpand_inventory/(d)ecrease_inventory): ")
 
         #picks up an item
         if action == "p":
             print()
             print("There are apples, coins, sentient piles of dirt,and many copies of skyrim in front of you.")
-            new_item = input("What do you want to pick up?(apple/coin/dirt/skyrim): ")
+            new_item = input("What do you choose to pick up?(apple/coin/dirt/skyrim): ")
             print()    
-            print("You pickup %s." %(new_item))
             #checks if a slot is empty and can hold an item
             for key in storage:
                 if storage[key] == "empty":
                     storage[key] = new_item
+                    print("You pickup %s." %(new_item))
+                    print()
                     break
-                
-                #need to put this into my code
-                    print("----------------------")
-                    print("Your inventory is full")
-                    print("----------------------")
+            if storage['space_%s'%space_num] != "empty":
+                print("-----------------------")
+                print("Your inventory is full.")
+                print("-----------------------")
                     
 
         #shows the inventory    
@@ -46,8 +50,19 @@ def inventory():
             print("Your inventory has gained a new space.")
             print("--------------------------------------")
 
+        #decreases number of inventory spaces
+        elif action == "d":
+            print("!!!WARNING!!!")
+            print("This will delete the last inventory space forever.")
+            delete = input("Do you wish to continue?(y/n): ")
+            if delete == "y":
+                del storage['space_%s'%len(storage)]
+                print("--------------------------------")
+                print("Your inventory has lost a space.")
+                print("--------------------------------")
+
             
-        #ends the loop
+        #ends the main loop
         elif action == "q":
             print("-------------------------")
             print("You close your inventory.")
